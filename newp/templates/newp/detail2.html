@@ -1,0 +1,17 @@
+<!-- content -->
+<h1>{{ info }}</h1>
+
+{% if error_message%}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+<form action="{% url 'newp:like' info.id %}" method="post">
+{% csrf_token %}
+{% for like in info.like_set.all %}
+    <input type="radio" name="like" id="like{{ forloop.counter }}" value="{{ like.id }}">
+    <label for="like{{ forloop.counter }}">{{ like.rmk }}</label><br>
+{% endfor %}
+<br/>
+<input type="submit" value="Submit">
+</form>
+
