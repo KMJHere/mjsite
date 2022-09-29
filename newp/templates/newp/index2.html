@@ -1,0 +1,13 @@
+{% if desc_user%}
+    <ul>
+        {% for user in desc_user%}
+        <li>
+            <!-- <a href="/newp/{{member_id}}/">{{user.name}}</a> -->
+            <!-- 하드코드 유동적인 코드 변경-->
+            <a href="{% url 'newp:detail' user.member_id %}">{{user.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No Data Now</p>
+{% endif %}

@@ -1,0 +1,11 @@
+<h1>{{ board.content }}</h1>
+
+<ul>
+{% for choice in board.like_set.all %}
+    <li>
+        {{ choice.rmk }} -> {{ choice.like }} like{{ choice.like|pluralize }}
+    </li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'newp:detail' board.writer.member_id %}">Reload?</a>
