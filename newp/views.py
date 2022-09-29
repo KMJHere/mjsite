@@ -1,4 +1,5 @@
 from asyncore import write
+from csv import writer
 from json import load
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
@@ -10,7 +11,7 @@ from django.urls import reverse
 # Create your views here.
 
 def index(request):
-    desc_user = member.objects.order_by('-member_id')[:4]
+    desc_user = member.objects.order_by('-member_id')[:5]
     # output = ', '.join([a.name for a in desc_user])
     tpl = loader.get_template("newp/index.html")
     context = {
@@ -30,7 +31,8 @@ def detail(request, member_id):
         raise Http404("No Data")
     """
     info = get_object_or_404(board, writer=member_id)
-    return render(request, 'newp/detail.html', {'info':info}) 
+    other_member = member.objects.exclude(member_id=member_id)
+    return render(request, 'newp/detail.html', {'info':info, 'other_member':other_member}) 
 def modify(request, member_id):
     return HttpResponse("This Is Modify Page Who Id? %s" % member_id)
 def like(request, board_id):
